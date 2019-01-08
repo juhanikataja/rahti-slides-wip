@@ -22,7 +22,7 @@
     </style>
     <style>
         body {
-            background: url('img/slide_background.png');
+            background: url('img/white.png');
             background-size: cover;
         }
     </style>
@@ -40,10 +40,11 @@
     <div class="slides">
         <!-- slides go here -->
         <section data-markdown="markdown/01_intro.md"
-                 data-separator="==="
-                 data-separator-vertical="^---$"
+                 data-separator="^---$"
+                 <!-- data&#45;separator&#45;vertical="^&#45;&#45;&#45;$" -->
                  data-separator-notes="^Note:"
-                 data-charset="utf-8">
+                 data-charset="utf-8"
+                 data-transition="none">
         </section>
     </div>
 </div>
@@ -55,7 +56,8 @@
     // More info https://github.com/hakimel/reveal.js#configuration
     Reveal.initialize({
         history: true,
-        center: false,
+        center: true,
+        controls: false,
         width: 1024,
         height: 768,
         // More info https://github.com/hakimel/reveal.js#dependencies
@@ -68,7 +70,9 @@
                 hljs.initHighlightingOnLoad();
             }
             }
-        ]
+        ],
+      backgroundTransition: 'none',
+      transition: 'none'
     });
 </script>
 </body>

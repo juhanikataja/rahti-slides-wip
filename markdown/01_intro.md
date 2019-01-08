@@ -1,25 +1,49 @@
-# Introduction to Rahtiä
+# Introduction to Rahti
 
 <!-- .slide: data-background="img/topic_background.png" -->
 
----
-
-## Containers
-
-* Standardize software deployment
-* Build once, run anywhere
-* Everything needed to run an app in a single package
 
 ---
+
+<!-- .slide: center="true" -->
 
 ## What is Rahti?
 
-* A new service from CSC
 * Container cloud platform based on **OpenShift** - Red Hat's distribution of **Kubernetes**
 * Run applications packaged as **containers**
 * Status
   * Currently in **closed beta**
   * **Production in 2019** - open beta some time before that
+  * Open beta in spring 2019
+
+---
+
+## What's a container?
+
+* Standardized software development
+    * Build once run everywhere
+* Everything needed to run an application in one package 
+
+**For almost all purposes:**
+
+>Container is an operating system without a kernel packaged in a standardized way
+
+---
+
+## What's a container vs. Virtual machine
+
+![VMs vs. containers](img/vm_vs_container.png)
+
+---
+
+## Why containers?
+
+* Package highly customized software into **easily** re-usable parts
+* Lighter than virtual machine 
+    * Sometimes called *light weight virtual machine*
+* **Orchestrate** multiple containers as complex services
+    * Better modularity and maintanability of complex services
+    * ...and still see the big picture
 
 ---
 
@@ -70,7 +94,7 @@
 | Fault tolerance    | DIY   | ✓     |
 | Autoscaling        | DIY   | ✓     |
 
-===
+---
 
 # Simplified workflow example
 
@@ -101,7 +125,7 @@
 <!-- .slide: data-transition="none" -->
 ![Container orchestration workflow](img/container_orchestration_stage4.png)
 
-===
+---
 
 # Why Kubernetes?
 
@@ -127,7 +151,7 @@
    * Cisco
    * Oracle
    * AWS
-* **$4 billion** in investments
+* **\$4 billion** in investments
 
 ---
 
@@ -155,12 +179,10 @@
 ## Sites that run on Kubernetes
 
 ![New York Times](img/ny_times_logo.png)
-
 ![GitHub](img/github_logo.png)
-
 ![Spotify](img/spotify_logo.png)
 
-===
+---
 
 # How to start using Rahti?
 
