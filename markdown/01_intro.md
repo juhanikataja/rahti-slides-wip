@@ -20,6 +20,8 @@
 * **Production in 2019** - open beta some time before that
 * Open beta in spring 2019
 
+---
+
 ## What's a container?
 
 * Standardized software development
