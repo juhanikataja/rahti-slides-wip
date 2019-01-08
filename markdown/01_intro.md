@@ -11,12 +11,14 @@
 
 * Container cloud platform based on **OpenShift** - Red Hat's distribution of **Kubernetes**
 * Run applications packaged as **containers**
-* Status
-  * Currently in **closed beta**
-  * **Production in 2019** - open beta some time before that
-  * Open beta in spring 2019
 
 ---
+
+## Status of Rahti
+
+* Currently in **closed beta**
+* **Production in 2019** - open beta some time before that
+* Open beta in spring 2019
 
 ## What's a container?
 
