@@ -91,9 +91,9 @@ https://labs.play-with-docker.com
 <div align="left">`Dockerfile`</div>
 
 ```Dockerfile
-FROM alpine
+FROM busybox
 
-ENTRYPOINT [ "/usr/bin/telnet", "towel.blinkenlights.nl" ]
+ENTRYPOINT [ "/bin/telnet", "towel.blinkenlights.nl" ]
 ```
 
 <div align="left">Shell commands</div>
@@ -104,7 +104,7 @@ docker images
 docker run -it --detach --name starwars starwars
 docker ps
 clear
-docker attach starwarsbash
+docker attach starwars
 ```
 
 ---
@@ -139,12 +139,7 @@ docker attach starwarsbash
 
 ---
 
-# <p style="color:black"> Demoxcercises </p>
-&nbsp;
-&nbsp;
-&nbsp;
-
-<!-- .element: class="fragment" data-fragment-index="0" --> Demos + Exercises = Demoxcercises
+# <p style="color:black"> Demos </p>
 
 ---
 
@@ -160,19 +155,30 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 
 ---
 
-## Terminology
+## Demo 1
 
-* Pod:
-* Service:
-* Route:
-* Build:
-* ImageStream:
+### Terminology
+
+* <!-- .element: class="fragment" data-fragment-index="0" -->Pod: a collection of containers sharing resources
+    * Can talk to each other using `localhost` or shared memory
+    * Typically one container per pod
+* <!-- .element: class="fragment" data-fragment-index="1" -->Service: Object that routes data internally to pods and performs load balancing
+* <!-- .element: class="fragment" data-fragment-index="2" -->Route: Provides access to a Service from outside
+* <!-- .element: class="fragment" data-fragment-index="3" -->Build: An object that builds images
+* <!-- .element: class="fragment" data-fragment-index="4" -->ImageStream: An object that describes a series of images
+* <!-- .element: class="fragment" data-fragment-index="5" -->Deployment: An object that keeps given number of pods alive and manages pod image updates
+    * Extension of ReplicationController in Kubernetes
 
 ---
 
-## Demo 2
+## Demo 2: Command line
 
-* Configure and start a spark cluster with a jupyter notebook
+* Do the Demo 1 on command line
+* Hints: 
+    * <!-- .element: class="fragment" data-fragment-index="0" --> Log in 
+    * <!-- .element: class="fragment" data-fragment-index="1" -->   `oc get templates -n openshift`
+    * <!-- .element: class="fragment" data-fragment-index="2" -->   `oc process --parameters -n openshift <template-name>`
+    * <!-- .element: class="fragment" data-fragment-index="3" -->   `oc new-app <template-name>  -p <params>`
 
 ---
 
