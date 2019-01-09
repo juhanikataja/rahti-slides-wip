@@ -5,9 +5,9 @@
 
 ---
 
-## What is Rahti?
+## Rahti is a
 
-> **Container** cloud Platform as a Service (PaaS) based on **OpenShift** - Red Hat's distribution of **Kubernetes**
+> container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
 Currently in **closed beta** 
 
@@ -56,6 +56,15 @@ open beta in spring 2019
 | Hardware virtualized | Kernel virtualized |
 | Any OS | Typically Linux distros |
 
+---
+
+## Better density of code, less hardware required
+
+&nbsp; 
+
+&nbsp;
+
+![VMs vs. containers](img/vm_container_density.png)
 
 ---
 
@@ -70,33 +79,39 @@ RUN apt-get update \
 ENTRYPOINT ["mysql"]
 ```
 * Roughly speaking: 
-    * Each line of the Dockerfile creates a layer on top of previous one and
-      only the difference is stored in an *image registry*.
+    * Start with *base image* (here `ubuntu:18.04`) and
+    * each line of the Dockerfile creates a *layer* on top of previous
+     *image* and only the difference is stored in an *image registry*.
 
 ---
 
+## The container cloud part?
 
-## Why containers?
+> container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
-* Package highly customized software into **easily** re-usable parts
-* Lighter than virtual machine 
-    * Sometimes called *light weight virtual machine*
-* **Orchestrate** multiple containers as complex services
-    * Better modularity and maintanability of complex services
-    * ...and still see the big picture
+* _Orchestrate_ multiple containers as complex services
+    * Better modularity and maintanability &rarr; still see the big picture
 
 ---
 
-## Better density of code, less hardware required
+## Cloud platform features
 
-&nbsp; 
-
-&nbsp;
-
-![VMs vs. containers](img/vm_container_density.png)
+|                    | Pouta | Rahti |
+|--------------------|:-----:|:-----:|
+| Self-service       | ✓     | ✓     |
+| REST API           | ✓     | ✓     |
+| Persistent storage | ✓     | ✓     |
+| Network isolation  | ✓     | ✓     |
+| Load balancing     | DIY   | ✓     |
+| TLS                | DIY   | ✓     |
+| Fault tolerance    | DIY   | ✓     |
+| Autoscaling        | DIY   | ✓     |
 
 ---
 
+<div style="font-scale:200%"> End of part 1. The rest is old stuff. </div>
+
+---
 # Rahti demo
 
 <!-- .slide: data-background="img/topic_background.png" -->
