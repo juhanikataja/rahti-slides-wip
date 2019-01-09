@@ -5,28 +5,32 @@
 
 ---
 
-<!-- .slide: center="true" -->
-
 ## What is Rahti?
 
-* Container cloud platform based on **OpenShift** - Red Hat's distribution of **Kubernetes**
-* Run applications packaged as **containers**
+> **Container** cloud Platform as a Service (PaaS) based on **OpenShift** - Red Hat's distribution of **Kubernetes**
+
+Currently in **closed beta** 
+
+↓
+
+open beta in spring 2019 
+
+↓
+
+<div style="font-size:150%">**Production in 2019** </div>
 
 ---
 
-## Status of Rahti
-
-* Currently in **closed beta**
-* **Production in 2019** - open beta some time before that
-* Open beta in spring 2019
+<div style="font-size:150%"> But what's a container?</div>
 
 ---
 
-## What's a container?
+## But what's a container
 
+* Everything needed to run an application in one package 
+    * "inf-sup" of dependencies for a piece of software
 * Standardized software development
     * Build once run everywhere
-* Everything needed to run an application in one package 
 
 **For almost all purposes:**
 
@@ -40,6 +44,38 @@
 
 ---
 
+## What's a container vs. Virtual machine
+
+| VM | Container |
+|:-|-:|
+| Heavy (GBs) | Light (10-1000 MBs)|
+| Full OS | Libs and binaries only |
+| Persistent | Ephemeral |
+| Shouldn't be restarted | Meant to be restarted |
+| Slower startup time | Faster startup time |
+| Hardware virtualized | Kernel virtualized |
+| Any OS | Typically Linux distros |
+
+
+---
+
+## Dockerfile
+
+* A standardized way of defining container images is via Dockerfiles
+```Dockerfile
+FROM ubuntu:18.04
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["mysql"]
+```
+* Roughly speaking: 
+    * Each line of the Dockerfile creates a layer on top of previous one and
+      only the difference is stored in an *image registry*.
+
+---
+
+
 ## Why containers?
 
 * Package highly customized software into **easily** re-usable parts
@@ -48,6 +84,16 @@
 * **Orchestrate** multiple containers as complex services
     * Better modularity and maintanability of complex services
     * ...and still see the big picture
+
+---
+
+## Better density of code, less hardware required
+
+&nbsp; 
+
+&nbsp;
+
+![VMs vs. containers](img/vm_container_density.png)
 
 ---
 
