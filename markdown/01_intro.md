@@ -28,7 +28,7 @@ open beta in spring 2019
 ## But what's a container
 
 * Everything needed to run an application in one package 
-    * "inf-sup" of dependencies for a piece of software
+    * "$\inf\sup$" of dependencies for a piece of software
 * Standardized software development
     * Build once run everywhere
 
@@ -137,8 +137,6 @@ docker attach starwars
 
 ---
 
----
-
 # <p style="color:black"> Demos </p>
 
 ---
@@ -155,19 +153,17 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 
 ---
 
-## Demo 1
+## Demo 1: Terminology
 
-### Terminology
-
-* <!-- .element: class="fragment" data-fragment-index="0" -->Pod: a collection of containers sharing resources
+* <!-- .element: class="fragment" data-fragment-index="0" -->*Pod*: a collection of containers sharing resources
     * Can talk to each other using `localhost` or shared memory
     * Typically one container per pod
-* <!-- .element: class="fragment" data-fragment-index="1" -->Service: Object that routes data internally to pods and performs load balancing
-* <!-- .element: class="fragment" data-fragment-index="2" -->Route: Provides access to a Service from outside
-* <!-- .element: class="fragment" data-fragment-index="3" -->Build: An object that builds images
-* <!-- .element: class="fragment" data-fragment-index="4" -->ImageStream: An object that describes a series of images
-* <!-- .element: class="fragment" data-fragment-index="5" -->Deployment: An object that keeps given number of pods alive and manages pod image updates
-    * Extension of ReplicationController in Kubernetes
+* <!-- .element: class="fragment" data-fragment-index="1" -->*Service*: Object that routes data internally to pods and performs load balancing
+* <!-- .element: class="fragment" data-fragment-index="2" -->*Route*: Provides access to a Service from outside
+* <!-- .element: class="fragment" data-fragment-index="3" -->*Build*: An object that builds images
+* <!-- .element: class="fragment" data-fragment-index="4" -->*ImageStream*: An object that describes a series of images
+* <!-- .element: class="fragment" data-fragment-index="5" -->*Deployment*: An object that keeps given number of pods alive and manages pod image updates
+    * Extension of *ReplicationController* in Kubernetes
 
 ---
 
@@ -182,99 +178,15 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 
 ---
 
-# Demo 3? ...
+## Demo 3: (by Shubham)
 
 ---
 
-
-
-<p style="font-size:300%"> The rest is old stuff. </p>
+# <p style="color:black"> About the platform </p>
 
 ---
 
-# Rahti demo
-
-<!-- .slide: data-background="img/topic_background.png" -->
-
----
-
-## Virtual machines vs. containers
-
-![VMs vs. containers](img/vm_vs_container.png)
-
----
-
-## Better density, less hardware needed
-
-![VMs vs. containers](img/vm_container_density.png)
-
----
-
-## Cloud computing platforms
-
-* **Isolated** computing resources from a **shared pool**
-* Self-service
-* Users run their own software on the **platform**
-
----
-
-## Two types of clouds
-
-* <!-- .element: class="fragment" data-fragment-index="0" --> Infrastructure-as-a-service (Pouta) - central concept: **Virtual machines**
-* <!-- .element: class="fragment" data-fragment-index="1" --> Platform-as-a-service (Rahti) - central concept: **Applications**
-* <!-- .element: class="fragment" data-fragment-index="2" --> Same end goal: **enable users to run their own software in the cloud**
-
----
-
-## Cloud platform features
-
-|                    | Pouta | Rahti |
-|--------------------|:-----:|:-----:|
-| Self-service       | ✓     | ✓     |
-| REST API           | ✓     | ✓     |
-| Persistent storage | ✓     | ✓     |
-| Network isolation  | ✓     | ✓     |
-| Load balancing     | DIY   | ✓     |
-| TLS                | DIY   | ✓     |
-| Fault tolerance    | DIY   | ✓     |
-| Autoscaling        | DIY   | ✓     |
-
----
-
-# Simplified workflow example
-
-<!-- .slide: data-background="img/topic_background.png" -->
-
----
-
-<!-- .slide: data-transition="none" -->
-![Container orchestration workflow](img/container_orchestration_stage0.png)
-
----
-
-<!-- .slide: data-transition="none" -->
-![Container orchestration workflow](img/container_orchestration_stage1.png)
-
----
-
-<!-- .slide: data-transition="none" -->
-![Container orchestration workflow](img/container_orchestration_stage2.png)
-
----
-
-<!-- .slide: data-transition="none" -->
-![Container orchestration workflow](img/container_orchestration_stage3.png)
-
----
-
-<!-- .slide: data-transition="none" -->
-![Container orchestration workflow](img/container_orchestration_stage4.png)
-
----
-
-# Why Kubernetes?
-
-<!-- .slide: data-background="img/topic_background.png" -->
+# <p style="color:black">Why Kubernetes? </p>
 
 ---
 
@@ -290,20 +202,12 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 
 * Open source, hosted by a foundation (CNCF)
 * Backing from tech giants, including:
-   * Google
-   * Red Hat
-   * Microsoft
-   * Cisco
-   * Oracle
-   * AWS
-* **\$4 billion** in investments
+   * Google, Red Hat, Microsoft, Cisco, Oracle, AWS
+* **$10^9$ USD** in investments
+* Large ecosystem:
+  * <a href="http://l.cncf.io" data-preview-link>CNCF Cloud Native Landscape (https://l.cncf.io)</a>
+  * <a href="https://kubernetes.io/case-studies/" data-preview-link>Kubernetes Case Studies</a>
 
----
-
-## Large ecosystem
-
-* <a href="http://l.cncf.io" data-preview-link>CNCF Cloud Native Landscape (https://l.cncf.io)</a>
-* <a href="https://kubernetes.io/case-studies/" data-preview-link>Kubernetes Case Studies</a>
 ---
 
 ## Supported by all major cloud providers
@@ -326,12 +230,6 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 ![New York Times](img/ny_times_logo.png)
 ![GitHub](img/github_logo.png)
 ![Spotify](img/spotify_logo.png)
-
----
-
-# How to start using Rahti?
-
-<!-- .slide: data-background="img/topic_background.png" -->
 
 ---
 
