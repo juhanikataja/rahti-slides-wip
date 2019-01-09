@@ -85,12 +85,40 @@ ENTRYPOINT ["mysql"]
 
 ---
 
+## Docker demo
+
+https://labs.play-with-docker.com
+<div align="left">`Dockerfile`</div>
+
+```Dockerfile
+FROM alpine
+
+ENTRYPOINT [ "/usr/bin/telnet", "towel.blinkenlights.nl" ]
+```
+
+<div align="left">Shell commands</div>
+
+```bash
+docker build . -t starwars:latest
+docker images
+docker run -it --detach --name starwars starwars
+docker ps
+clear
+docker attach starwarsbash
+```
+
+---
+
 ## The container cloud part?
 
 > container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
 * _Orchestrate_ multiple containers as complex services
     * Better modularity and maintanability &rarr; still see the big picture
+* Declare container application as a collection of objects in a text file
+    * Parametrizable
+    * YAML formatted
+* Command line and graphical web interfaces
 
 ---
 
@@ -109,9 +137,55 @@ ENTRYPOINT ["mysql"]
 
 ---
 
-<div style="font-scale:200%"> End of part 1. The rest is old stuff. </div>
+---
+
+# <p style="color:black"> Demoxcercises </p>
+&nbsp;
+&nbsp;
+&nbsp;
+
+<!-- .element: class="fragment" data-fragment-index="0" --> Demos + Exercises = Demoxcercises
 
 ---
+
+## Demo 1
+
+* Start up an Apache HTTP server serving static content from github
+repository https://github.com/CSCfi/rahti-httpd-ex
+    * Or you can make your own fork
+* Edit the source `index.html`
+* Rebuild image
+* Debug the running _pod_ on terminal and see that the sources are at
+  `/tmp/src`
+
+---
+
+## Terminology
+
+* Pod:
+* Service:
+* Route:
+* Build:
+* ImageStream:
+
+---
+
+## Demo 2
+
+* Configure and start a spark cluster with a jupyter notebook
+
+---
+
+# Demo 3? ...
+
+---
+
+
+
+<p style="font-size:300%"> The rest is old stuff. </p>
+
+---
+
 # Rahti demo
 
 <!-- .slide: data-background="img/topic_background.png" -->
