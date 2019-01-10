@@ -63,8 +63,8 @@ body {
   padding-left: 230px;
   padding-top: -270px; }
 .reveal h2 {
-  position: fixed;
-  /* margin-top: -100px; */
+  /* position: fixed; */
+  margin-top: -100px;
   top: -80px;
   left: 0px;
   padding-top: 100px;

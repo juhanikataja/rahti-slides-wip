@@ -2,7 +2,6 @@
 
 <!-- .slide: data-background="img/topic_background.png" -->
 
-
 ---
 
 ## Rahti is a
@@ -18,10 +17,6 @@ open beta in spring 2019
 ↓
 
 <div style="font-size:150%">**Production in 2019** </div>
-
----
-
-<div style="font-size:150%"> But what's a container?</div>
 
 ---
 
@@ -54,15 +49,12 @@ open beta in spring 2019
 | Shouldn't be restarted | Meant to be restarted |
 | Slower startup time | Faster startup time |
 | Hardware virtualized | Kernel virtualized |
-| Any OS | Typically Linux distros |
+| Any OS | Linux |
 
 ---
 
 ## Better density of code, less hardware required
 
-&nbsp; 
-
-&nbsp;
 
 ![VMs vs. containers](img/vm_container_density.png)
 
@@ -109,10 +101,11 @@ docker attach starwars
 
 ---
 
-## The container cloud part?
+## Rahti is a 
 
 > container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
+* The *container cloud* part
 * _Orchestrate_ multiple containers as complex services
     * Better modularity and maintanability &rarr; still see the big picture
 * Declare container application as a collection of objects in a text file
@@ -162,8 +155,7 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 * <!-- .element: class="fragment" data-fragment-index="2" -->*Route*: Provides access to a Service from outside
 * <!-- .element: class="fragment" data-fragment-index="3" -->*Build*: An object that builds images
 * <!-- .element: class="fragment" data-fragment-index="4" -->*ImageStream*: An object that describes a series of images
-* <!-- .element: class="fragment" data-fragment-index="5" -->*Deployment*: An object that keeps given number of pods alive and manages pod image updates
-    * Extension of *ReplicationController* in Kubernetes
+* <!-- .element: class="fragment" data-fragment-index="5" -->*DeploymentConfig*: An object that keeps given number of pods alive and manages pod image updates
 
 ---
 
