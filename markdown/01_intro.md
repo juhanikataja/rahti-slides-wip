@@ -233,3 +233,4 @@ repository https://github.com/CSCfi/rahti-httpd-ex
   * [Instructions for getting access](https://rahti.csc.fi/introduction/access/)
 * [rahti-support@csc.fi](mailto:rahti-support@csc.fi) for support
 * [rahti-team@postit.csc.fi](mailto:rahti-team@postit.csc.fi) to contact the team
+* [Public roadmap](https://trello.com/b/JQT9QiS2/rahti-container-cloud-roadmap)
