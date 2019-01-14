@@ -33,13 +33,13 @@ open beta in spring 2019
 
 ---
 
-## What's a container vs. Virtual machine
+## What's a Virtual machine vs. container
 
 ![VMs vs. containers](img/vm_vs_container.png)
 
 ---
 
-## What's a container vs. Virtual machine
+## What's a Virtual machine vs. container
 
 | VM | Container |
 |:-|-:|
@@ -105,7 +105,7 @@ docker attach starwars
 
 > container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
-* The *container cloud* part
+The *container cloud* part
 * _Orchestrate_ multiple containers as complex services
     * Better modularity and maintanability &rarr; still see the big picture
 * Declare container application as a collection of objects in a text file
