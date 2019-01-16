@@ -176,7 +176,7 @@ Note: Show Pods, Services, Routes, Builds, ImageStream and DeploymentConfig
 * <!-- .element: class="fragment" data-fragment-index="1" -->*Service*: Object that routes data internally to pods and performs load balancing
 * <!-- .element: class="fragment" data-fragment-index="2" -->*Route*: Provides access to a Service from outside
 * <!-- .element: class="fragment" data-fragment-index="3" -->*Build*: An object that builds images
-* <!-- .element: class="fragment" data-fragment-index="4" -->*ImageStream*: An object that describes a series of images
+* <!-- .element: class="fragment" data-fragment-index="4" -->*ImageStream*: An object that tracks a series of images
 * <!-- .element: class="fragment" data-fragment-index="5" -->*DeploymentConfig*: An object that keeps given number of pods alive and manages pod image updates
 
 ---
@@ -200,7 +200,7 @@ Notes: This is only the tip of the iceberg how `oc new-app` works
 * Examine the template source
     * <!-- .element: class="fragment" data-fragment-index="0" --> `oc get templates -n openshift apache-spark -o yaml`
 
-Note: simple template `oc get templates -n openshift httpd-example -o yaml`
+Note: (a) Show scaling of workers. (b) Simple template: `oc get templates -n openshift httpd-example -o yaml`. 
 
 ---
 
