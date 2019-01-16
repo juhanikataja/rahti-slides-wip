@@ -170,8 +170,12 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 
 ---
 
-## Demo 3: (by Shubham)
+## Demo 3: Apache Spark cluster 
 
+* Set up apache spark cluster with the apache-spark template
+* Examine the template source
+    * <!-- .element: class="fragment" data-fragment-index="0" --> `oc get templates -n openshift apache-spark -o yaml`
+    * <!-- .element: class="fragment" data-fragment-index="1" --> More simple template: `oc get templates -n openshift https-example -o yaml`
 ---
 
 # <p style="color:black"> About the platform </p>
