@@ -124,7 +124,7 @@ The *container cloud* part
     * Specify required image from world of Docker Hub 
 * Build & deploy you application from source code contained in Git repository
     * Using Source to image (S2I) utility
-    * YAML formatted
+    * From Dockerfile
 * Build in your own complex deployment using OpenShift templates
     * Define your own deployments using YAML, or
     * Browse Redhat's opensourced OpenShift templates
