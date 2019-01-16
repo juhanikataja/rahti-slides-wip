@@ -37,6 +37,8 @@ open beta in spring 2019
 
 ![VMs vs. containers](img/vm_vs_container.png)
 
+Note: Native kernel when host is Linux. Uses kernel cgroups and namespaces
+
 ---
 
 ## What's a Virtual machine vs. container
@@ -113,6 +115,8 @@ The *container cloud* part
     * YAML formatted
 * Command line and graphical web interfaces
 
+Note: when containers are run on someone elses hardware and they can be managed systematically
+
 ---
 
 ## Bringing in your application to Rahti 
@@ -160,12 +164,14 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 * Debug the running _pod_ on terminal and see that the sources are at
   `/tmp/src`
 
+Note: Show Pods, Services, Routes, Builds, ImageStream and DeploymentConfig
+
 ---
 
 ## Demo 1: Terminology
 
 * <!-- .element: class="fragment" data-fragment-index="0" -->*Pod*: a collection of containers sharing resources
-    * Can talk to each other using `localhost` or shared memory
+    * Containers in a pod can talk to each other using `localhost` or shared memory
     * Typically one container per pod
 * <!-- .element: class="fragment" data-fragment-index="1" -->*Service*: Object that routes data internally to pods and performs load balancing
 * <!-- .element: class="fragment" data-fragment-index="2" -->*Route*: Provides access to a Service from outside
@@ -184,6 +190,8 @@ repository https://github.com/CSCfi/rahti-httpd-ex
     * <!-- .element: class="fragment" data-fragment-index="2" -->   `oc process --parameters -n openshift <template-name>`
     * <!-- .element: class="fragment" data-fragment-index="3" -->   `oc new-app <template-name>  -p <params>`
 
+Notes: This is only the tip of the iceberg how `oc new-app` works
+
 ---
 
 ## Demo 3: Apache Spark cluster 
@@ -191,7 +199,9 @@ repository https://github.com/CSCfi/rahti-httpd-ex
 * Set up apache spark cluster with the apache-spark template
 * Examine the template source
     * <!-- .element: class="fragment" data-fragment-index="0" --> `oc get templates -n openshift apache-spark -o yaml`
-    * <!-- .element: class="fragment" data-fragment-index="1" --> More simple template: `oc get templates -n openshift https-example -o yaml`
+
+Note: simple template `oc get templates -n openshift httpd-example -o yaml`
+
 ---
 
 # <p style="color:black"> About the platform </p>
