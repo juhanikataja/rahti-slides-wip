@@ -115,6 +115,22 @@ The *container cloud* part
 
 ---
 
+## Bringing in your application to Rahti 
+
+> There are 3 trivial ways to bring in your application to Rahti.
+
+* Deploy your application with existing Docker container image
+    * Bring in your own Docker formatted container image, or
+    * Specify required image from world of Docker Hub 
+* Build & deploy you application from source code contained in Git repository
+    * Using Source to image (S2I) utility
+    * YAML formatted
+* Build in your own complex deployment using OpenShift templates
+    * Define your own deployments using YAML, or
+    * Browse Redhat's opensourced OpenShift templates
+
+---
+
 ## Cloud platform features
 
 |                    | Pouta | Rahti |
