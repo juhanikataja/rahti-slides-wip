@@ -81,7 +81,6 @@ ENTRYPOINT ["mysql"]
 
 ## Docker demo
 
-https://labs.play-with-docker.com
 <div align="left">`Dockerfile`</div>
 
 ```Dockerfile
@@ -100,6 +99,8 @@ docker ps
 clear
 docker attach starwars
 ```
+
+<div style="font-size: 60%"> If you don't have docker installed you can try https://labs.play-with-docker.com </div>
 
 ---
 
