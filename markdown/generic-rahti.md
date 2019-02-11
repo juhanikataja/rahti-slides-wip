@@ -1,3 +1,4 @@
+
 # Introduction to Rahti
 
 <!-- .slide: data-background="img/topic_background.png" -->
@@ -8,15 +9,11 @@
 
 > container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
-Currently in **closed beta** 
+<div align="left">
 
-↓
+## Allows
 
-open beta in spring 2019 
-
-↓
-
-<div style="font-size:150%">**Production in 2019** </div>
+</div>
 
 ---
 
