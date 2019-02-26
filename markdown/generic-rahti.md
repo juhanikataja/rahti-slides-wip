@@ -9,20 +9,27 @@
 
 > container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
 
-<div align="left">
+&nbsp;
+&nbsp;
 
-## Allows
+----
 
-</div>
+&nbsp;
+&nbsp;
+
+### Allows
+
+*Provisioning servers based on container technology with JSON API or web console.*
 
 ---
 
-## But what's a container
+## Containers in Openshift
 
-* Everything needed to run an application in one package 
-    * "$\inf\sup$" of dependencies for a piece of software
-* Standardized software development
-    * Build once run everywhere
+* Container images contain full Linux software stacks up to kernel
+    * "Light weight virtual machines"
+* Follow Docker standard $\longrightarrow$ Wide support
+    * Build once run everywhere (with small modifications)
+* Extension of Kubernetes
 
 **For almost all purposes:**
 
@@ -30,7 +37,7 @@
 
 ---
 
-## What's a Virtual machine vs. container
+## Virtual machine vs. container
 
 ![VMs vs. containers](img/vm_vs_container.png)
 
@@ -38,7 +45,7 @@ Note: Native kernel when host is Linux. Uses kernel cgroups and namespaces
 
 ---
 
-## What's a Virtual machine vs. container
+## Virtual machine vs. container
 
 | VM | Container |
 |:-|-:|
@@ -59,7 +66,7 @@ Note: Native kernel when host is Linux. Uses kernel cgroups and namespaces
 
 ---
 
-## Dockerfile
+## Defining container images
 
 * A standardized way of defining container images is via Dockerfiles
 ```Dockerfile
@@ -69,67 +76,108 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["mysql"]
 ```
-* Roughly speaking: 
-    * Start with *base image* (here `ubuntu:18.04`) and
-    * each line of the Dockerfile creates a *layer* on top of previous
-     *image* and only the difference is stored in an *image registry*.
+* Start with *base image* (here `ubuntu:18.04`) and
+* each line of the Dockerfile creates a *layer* on top of previous
+ *image* and only the difference is stored in an *image registry*.
 
 ---
 
-## Docker demo
+## Sample python application
 
-<div align="left">`Dockerfile`</div>
+<div id="left">
 
-```Dockerfile
-FROM busybox
+Pick python template 
 
-ENTRYPOINT [ "/bin/telnet", "towel.blinkenlights.nl" ]
-```
+</div>
 
-<div align="left">Shell commands</div>
+<div id="right">
 
-```bash
-docker build . -t starwars:latest
-docker images
-docker run -it --detach --name starwars starwars
-docker ps
-clear
-docker attach starwars
-```
+![vert-shot](img/generic-shots/templates.png)
 
-<div style="font-size: 60%"> If you don't have docker installed you can try https://labs.play-with-docker.com </div>
+</div>
 
 ---
 
-## Rahti is a 
+## Sample python application
 
-> container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
+<div id="left">
 
-The *container cloud* part
-* _Orchestrate_ multiple containers as complex services
-    * Better modularity and maintanability &rarr; still see the big picture
-* Declare container application as a collection of objects in a text file
-    * Parametrizable
-    * YAML formatted
-* Command line and graphical web interfaces
+Fill in template details
 
-Note: when containers are run on someone elses hardware and they can be managed systematically
+1. Choose or create project
+2. Pick python version (3.6, 3.5, 2.7)
+3. Pick name of application
+4. Enter application code git repository
+    * Click *advanced options* for private repositories
+5. Click Create
+
+
+</div>
+
+<div id="right">
+
+![horiz-shot](img/generic-shots/template-params.png)
+
+</div>
+
+---
+
+## Sample python application
+
+<div id="left">
+
+Click project name on right and wait for the application to be deployed.
+
+</div>
+
+<div id="right">
+
+![horiz-shot](img/generic-shots/template-result.png)
+
+</div>
+
+---
+
+## Sample python application
+
+
+* When the application us running, OpenShift console will collect data related to it in a dashboard view
+* This project has a route http://django-ex-test-python-project.rahtiapp.fi
+
+![horiz-shot](img/generic-shots/template-up.png)
+
 
 ---
 
 ## Bringing in your application to Rahti 
 
-> There are 3 trivial ways to bring in your application to Rahti.
+<div style="text-align: left">
 
-* Deploy your application with existing Docker container image
-    * Bring in your own Docker formatted container image, or
-    * Specify required image from world of Docker Hub 
-* Build & deploy you application from source code contained in Git repository
-    * Using Source to image (S2I) utility
-    * From Dockerfile
-* Build in your own complex deployment using OpenShift templates
-    * Define your own deployments using YAML, or
-    * Browse Redhat's opensourced OpenShift templates
+1. Existing Docker image 
+    * Set up routes and services by hand
+2. Build Docker image from source
+    * Source-to-Image (*Sample python application*)
+    * Dockerfile
+3. Utilize OpenShift Templates (*Sample python application*)
+
+</div>
+
+===
+
+## Using existing docker image
+
+### Uploading docker image to rahti registry:
+
+1. Create new image stream at [https://registry-console.rahti.csc.fi](Rahti registry console)
+2. Follow instructions and login
+    * `sudo docker login ...`
+    * `oc login ...`
+3. Push image to the image stream with Docker
+    * Navigate to *Images* and open the newly created image stream tab
+    * `sudo docker tag ...`
+    * `sudo docker push docker-registry.rahti.csc.fi/...`
+
+===
 
 ---
 
@@ -145,64 +193,6 @@ Note: when containers are run on someone elses hardware and they can be managed 
 | TLS                | DIY   | ✓     |
 | Fault tolerance    | DIY   | ✓     |
 | Autoscaling        | DIY   | ✓     |
-
----
-
-# <p style="color:black"> Demos </p>
-
----
-
-## Demo 1
-
-* Start up an Apache HTTP server serving static content from github
-repository https://github.com/CSCfi/rahti-httpd-ex
-    * Or you can make your own fork
-* Edit the source `index.html`
-* Rebuild image
-* Debug the running _pod_ on terminal and see that the sources are at
-  `/tmp/src`
-
-Note: Show Pods, Services, Routes, Builds, ImageStream and DeploymentConfig
-
----
-
-## Demo 1: Terminology
-
-* <!-- .element: class="fragment" data-fragment-index="0" -->*Pod*: a collection of containers sharing resources
-    * Containers in a pod can talk to each other using `localhost` or shared memory
-    * Typically one container per pod
-* <!-- .element: class="fragment" data-fragment-index="1" -->*Service*: Object that routes data internally to pods and performs load balancing
-* <!-- .element: class="fragment" data-fragment-index="2" -->*Route*: Provides access to a Service from outside
-* <!-- .element: class="fragment" data-fragment-index="3" -->*Build*: An object that builds images
-* <!-- .element: class="fragment" data-fragment-index="4" -->*ImageStream*: An object that tracks a series of images
-* <!-- .element: class="fragment" data-fragment-index="5" -->*DeploymentConfig*: An object that keeps given number of pods alive and manages pod image updates
-
----
-
-## Demo 2: Command line
-
-* Do the Demo 1 on command line
-* Hints: 
-    * <!-- .element: class="fragment" data-fragment-index="0" --> Log in 
-    * <!-- .element: class="fragment" data-fragment-index="1" -->   `oc get templates -n openshift`
-    * <!-- .element: class="fragment" data-fragment-index="2" -->   `oc process --parameters -n openshift <template-name>`
-    * <!-- .element: class="fragment" data-fragment-index="3" -->   `oc new-app <template-name>  -p <params>`
-
-Notes: This is only the tip of the iceberg how `oc new-app` works
-
----
-
-## Demo 3: Apache Spark cluster 
-
-* Set up apache spark cluster with the apache-spark template
-* Examine the template source
-    * <!-- .element: class="fragment" data-fragment-index="0" --> `oc get templates -n openshift apache-spark -o yaml`
-
-Note: (a) Show scaling of workers. (b) Simple template: `oc get templates -n openshift httpd-example -o yaml`. 
-
----
-
-# <p style="color:black"> About the platform </p>
 
 ---
 
