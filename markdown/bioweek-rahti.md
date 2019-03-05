@@ -270,7 +270,6 @@ Configuration: aragorn GCF_000002945.1_ASM294v2_genomic.fna
 * Objects are defined as key-value maps
 * Representation in YAML language
   * Indentation matters
-  * Press down for intro to YAML
 
 </div>
 
@@ -305,6 +304,8 @@ spec:
 
 </div> </div>
 
+$\downarrow$
+
 ===
 
 ## Brief intro to YAML files
@@ -337,6 +338,8 @@ spec:
     ```yaml
     list: [value 1, value 2]
     ```
+
+$\downarrow$
 
 ===
 
@@ -474,6 +477,8 @@ spec:
 *Does it work now?*
 
 ```
+$ oc describe pod simple
+...
 Events:
   Type     Reason            Age               From                         Message
   ----     ------            ----              ----                         -------
@@ -493,7 +498,7 @@ Events:
 *But there's nothing to run.*
 <!-- .element: class="fragment" data-fragment-index="0" -->
 
-**We can specify `command` to to run in the container.**
+**We can specify `command` to run in the container.**
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
@@ -549,6 +554,34 @@ Edit the pod definition and `replace` it. Does it work now?
 
 ---
 
+## Debug and file transfer
+
+See if the pod is up and running.
+
+```bash
+$ oc get pod
+NAME      READY     STATUS    RESTARTS   AGE
+simple    1/1       Running   0          1m
+```
+
+Remote shell connection to container, create file in the persistent volume mount:
+
+```bash
+$ oc rsh simple
+/ $ echo test > /data/testfile
+/ $ exit
+```
+
+Copy `testfile` to local shell:
+
+```bash
+$ oc rsync simple:/data/testfile ./
+WARNING: cannot use rsync: rsync not available in container
+testfile
+```
+
+---
+
 ## A typical pattern in the `command` specification
 
 ```yaml
@@ -569,18 +602,84 @@ sh -c 'echo first command && echo second command && echo third command'
 
 ---
 
+## Run-once-Pod
+
+<div class=container>
+
+<div class=col>
+
+* OpenShift will try to run the pod again if it exits.
+* Use "`restartPolicy: Never`" in the container definition for run-once-containers.
+* Output of the pod:
+
+```bash
+$ oc logs simple
+Short payload
+```
+
+</div>
+
+<div class=col>
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple
+  labels:
+    job: analyze
+spec:
+  restartPolicy: Never
+  volumes:
+  - name: volume-a
+    persistentVolumeClaim:
+      claimName: pvc-a
+  containers:
+  - name: container-a
+    image: alpine
+    volumeMounts:
+    - mountPath: /data
+      name: volume-a
+    command:
+    - sh
+    - -c
+    - echo Short payload
+```
+
+</div>
+
+</div>
+
+---
+
 ## Detour on `oc` commands
 
 | Syntax | Meaning |
 |--------|-------------|
-| `oc create -f <filename>` | Create object from file |
-| `oc replace -f <filename>` | Replace object with file |
-| `oc delete <object type> <object name>` | Delete object from cluster |
-| `oc describe <object type> <object name>` | Display object status |
+| `oc create -f <fileName>` | Create object from file |
+| `oc replace -f <fileName>` | Replace object with file |
+| `oc delete <objectType> <objectName>` | Delete object from cluster |
+| `oc describe <objectType> <objectName>` | Display object status |
 | `oc status` | Display current OpenShift top level project status |
-| `oc project` | switch to project, show project |
-| `oc new-project` | create new OpenShift project |
-| `oc explain <object type>.<field>.<subfield>` | Print out documentation |
+| `oc logs <podName> [-c <containerName>]` | output stdout of pod `<podName>`, optionally that of container `<containerName>` |
+
+$\downarrow$
+
+===
+
+## Detour on `oc` commands
+
+| Syntax | Meaning |
+|--------|-------------|
+| `oc explain <objectType>.<field>.<subField>` | Print out documentation |
+| `oc rsync <pod>:<filePath> <localPath>` | Copy data from/to pod to/from local filesystem |
+| `oc rsh <pod>` | Remote shell to container |
+| `oc project` | Switch to project, show project |
+| `oc new-project` | Create new OpenShift project |
+
+---
+
+## Summary
 
 ---
 
