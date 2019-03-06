@@ -166,22 +166,98 @@ Configuration: aragorn GCF_000002945.1_ASM294v2_genomic.fna
 
 ## Containers 
 
-* Container is a mechanism which encapsulates an unused set of Linux resources for an application to use:
-    * Own network, filesystem, process ids, user ids, resource quota
-* They have a look and feel of a light weight virtual machine like in Pouta, but they are not virtual machines.
+* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
+    * Own **network**, filesystem, process ids, user ids
+
+```bash
+/ $ ifconfig
+eth0      Link encap:Ethernet  HWaddr 0A:58:0A:80:06:72
+          inet addr:10.128.6.114  Bcast:10.128.7.255  Mask:255.255.254.0
+          inet6 addr: fe80::d4d4:38ff:fe5e:6e2b/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1450  Metric:1
+          RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:656 (656.0 B)  TX bytes:656 (656.0 B)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+```
+
+Note: alpine image
+
+---
+
+## Containers 
+
+* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
+    * Own network, **filesystem**, process ids, user ids
+
+```bash
+sh-4.2$ ls
+anaconda-post.log  bin	data  dev  etc	home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+```
+
+---
+
+## Containers 
+
+* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
+    * Own network, filesystem, **process ids** and **user ids**, ...
+
+```bash
+sh-4.2$ ps axu
+USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+1016530+      1  1.2  0.0  11680  1168 ?        Ss   10:49   0:00 sh -c (tail -f /dev/null)
+1016530+      7  0.0  0.0   4396   356 ?        S    10:49   0:00 tail -f /dev/null
+1016530+      8  0.3  0.0  11816  1700 ?        Ss   10:49   0:00 /bin/sh
+1016530+     15  0.0  0.0  51740  1732 ?        R+   10:49   0:00 ps axu
+```
+
+> Rahti does not allow running containers as root. It always assigns high user id. This is to prevent security issues.
+
+---
+
+## Containers
+
+<div class=container>
+
+<div class=col>
+
+* They might have a look and feel of a light weight virtual machine like in Pouta, but they are not virtual machines.
+* Relies on Linux kernel features.
 * Standardized container *images*.
     * Build once run everywhere.
     * But avoid some pitfalls.
+* Only Linux based images.
 * Standards: Docker, rkt, LXC, Singularity, Intel Clear Containers
-* **Rahti supports Docker images**
+* **Rahti supports *Docker* images**
+
+</div>
+
+<div class=col>
+
+![vm-vs-container](img/vm_vs_container.png)
+
+</div>
+
+</div>
 
 ---
 
 ## Containers enable
 
 * Running software with conflicting requirements on same server
-* "Ubuntu" on CentOS
+* Run "Ubuntu" software stack on CentOS host
 * Security hardening
+  * Expose minimal amount of data to container
+  * Smaller container image $\rightarrow$ smaller attack surface $\rightarrow$ easier to maintain
 
 >Demo: Docker CLI shell
 
@@ -238,6 +314,7 @@ Configuration: aragorn GCF_000002945.1_ASM294v2_genomic.fna
 </div>
 
 </div>
+
 ---
 
 ## Running containers in Kubernetes: Pods
@@ -290,7 +367,7 @@ spec:
       claimName: pvc-a
   containers:
   - name: container-a
-    image: alpine
+    image: centos:7
     volumeMounts:
     - mountPath: /data
       name: volume-a
@@ -394,7 +471,7 @@ spec:
 ```yaml
   containers:
   - name: container-a
-    image: alpine
+    image: centos:7
     volumeMounts:
     - mountPath: /data
       name: volume-a
@@ -484,8 +561,8 @@ Events:
   ----     ------            ----              ----                         -------
   Warning  FailedScheduling  1m (x15 over 4m)  default-scheduler            persistentvolumeclaim "pvc-a" not found
   Normal   Scheduled         27s               default-scheduler            Successfully assigned simple to rahti-comp-io-s5-5
-  Normal   Pulling           4s (x3 over 24s)  kubelet, rahti-comp-io-s5-5  pulling image "alpine"
-  Normal   Pulled            2s (x3 over 21s)  kubelet, rahti-comp-io-s5-5  Successfully pulled image "alpine"
+  Normal   Pulling           4s (x3 over 24s)  kubelet, rahti-comp-io-s5-5  pulling image "centos:7"
+  Normal   Pulled            2s (x3 over 21s)  kubelet, rahti-comp-io-s5-5  Successfully pulled image "centos:7"
   Normal   Created           2s (x3 over 21s)  kubelet, rahti-comp-io-s5-5  Created container
   Normal   Started           1s (x3 over 21s)  kubelet, rahti-comp-io-s5-5  Started container
   Warning  BackOff           1s (x3 over 17s)  kubelet, rahti-comp-io-s5-5  Back-off restarting failed container
@@ -523,7 +600,7 @@ spec:
       claimName: pvc-a
   containers:
   - name: container-a
-    image: alpine
+    image: centos:7
     volumeMounts:
     - mountPath: /data
       name: volume-a
@@ -636,7 +713,7 @@ spec:
       claimName: pvc-a
   containers:
   - name: container-a
-    image: alpine
+    image: centos:7
     volumeMounts:
     - mountPath: /data
       name: volume-a
