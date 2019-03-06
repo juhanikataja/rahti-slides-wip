@@ -1,4 +1,3 @@
-
 # Introduction to Rahti
 
 <!-- .slide: data-background="img/topic_background.png" -->
@@ -23,13 +22,25 @@
 
 ---
 
+## What is Rahti?
+
+* A new service from CSC
+* Container cloud platform based on **OpenShift** - Red Hat's distribution of **Kubernetes**
+* Run applications packaged as **containers**
+* Status
+  * Currently in **closed beta**
+  * **Production in 2019** - open beta some time before that
+
+---
+
 ## Containers in Openshift
 
 * Container images contain full Linux software stacks up to kernel
-    * "Light weight virtual machines"
-* Follow Docker standard $\longrightarrow$ Wide support
-    * Build once run everywhere (with small modifications)
-* Extension of Kubernetes
+* Utilizes Linux kernel features
+    * Only Linux images
+* Different container standards: Docker, rkt, LXC, Singularity, Intel Clear Containers
+* OpenShift supports *Docker* standard $\longrightarrow$ Wide support
+    * Build once run everywhere
 
 **For almost all purposes:**
 
@@ -42,6 +53,15 @@
 ![VMs vs. containers](img/vm_vs_container.png)
 
 Note: Native kernel when host is Linux. Uses kernel cgroups and namespaces
+
+---
+
+## Better density of code, less hardware required
+
+
+![VMs vs. containers](img/vm_container_density.png)
+
+
 
 ---
 
@@ -59,108 +79,33 @@ Note: Native kernel when host is Linux. Uses kernel cgroups and namespaces
 
 ---
 
-## Better density of code, less hardware required
+## Cloud platform features
 
-
-![VMs vs. containers](img/vm_container_density.png)
-
----
-
-## Defining container images
-
-* A standardized way of defining container images is via Dockerfiles
-```Dockerfile
-FROM ubuntu:18.04
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends mysql-client \
-    && rm -rf /var/lib/apt/lists/*
-ENTRYPOINT ["mysql"]
-```
-* Start with *base image* (here `ubuntu:18.04`) and
-* each line of the Dockerfile creates a *layer* on top of previous
- *image* and only the difference is stored in an *image registry*.
-
----
-
-## Sample python application
-
-<div id="left">
-
-Pick python template 
-
-</div>
-
-<div id="right">
-
-![vert-shot](img/generic-shots/templates.png)
-
-</div>
-
----
-
-## Sample python application
-
-<div id="left">
-
-Fill in template details
-
-1. Choose or create project
-2. Pick python version (3.6, 3.5, 2.7)
-3. Pick name of application
-4. Enter application code git repository
-    * Click *advanced options* for private repositories
-5. Click Create
-
-
-</div>
-
-<div id="right">
-
-![horiz-shot](img/generic-shots/template-params.png)
-
-</div>
-
----
-
-## Sample python application
-
-<div id="left">
-
-Click project name on right and wait for the application to be deployed.
-
-</div>
-
-<div id="right">
-
-![horiz-shot](img/generic-shots/template-result.png)
-
-</div>
-
----
-
-## Sample python application
-
-
-* When the application us running, OpenShift console will collect data related to it in a dashboard view
-* This project has a route http://django-ex-test-python-project.rahtiapp.fi
-
-![horiz-shot](img/generic-shots/template-up.png)
-
+|                    | Pouta | Rahti |
+|--------------------|:-----:|:-----:|
+| Self-service       | ✓     | ✓     |
+| REST API           | ✓     | ✓     |
+| Persistent storage | ✓     | ✓     |
+| Network isolation  | ✓     | ✓     |
+| Load balancing     | DIY   | ✓     |
+| TLS                | DIY   | ✓     |
+| Fault tolerance    | DIY   | ✓     |
+| Autoscaling        | DIY   | ✓     |
 
 ---
 
 ## Bringing in your application to Rahti 
 
-<div style="text-align: left">
 
 1. Existing Docker image 
-    * Set up routes and services by hand
-2. Build Docker image from source
-    * Source-to-Image (*Sample python application*)
+    * Pull from external repository
+    * Push to Rahti internal registry
+2. Build Docker image from source in Rahti
+    * Source-to-Image 
     * Dockerfile
-3. Utilize OpenShift Templates (*Sample python application*)
+3. Utilize OpenShift Templates 
+    * Bring template and deploy wide variety of applications using GUI
 
-</div>
 
 ===
 
@@ -179,21 +124,84 @@ Click project name on right and wait for the application to be deployed.
 
 ===
 
----
+## Defining container images
 
-## Cloud platform features
+* A standardized way of defining container images is via Dockerfiles
+```Dockerfile
+FROM ubuntu:18.04
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["mysql"]
+```
+* Start with *base image* (here `ubuntu:18.04`) and
+* each line of the Dockerfile creates a *layer* on top of previous
+ *image* and only the difference is stored in an *image registry*.
 
-|                    | Pouta | Rahti |
-|--------------------|:-----:|:-----:|
-| Self-service       | ✓     | ✓     |
-| REST API           | ✓     | ✓     |
-| Persistent storage | ✓     | ✓     |
-| Network isolation  | ✓     | ✓     |
-| Load balancing     | DIY   | ✓     |
-| TLS                | DIY   | ✓     |
-| Fault tolerance    | DIY   | ✓     |
-| Autoscaling        | DIY   | ✓     |
+===
 
+## Sample python application
+
+<div id="left">
+
+Pick python template 
+
+</div>
+
+<div id="right">
+
+![vert-shot](img/generic-shots/templates.png)
+
+</div>
+
+===
+
+## Sample python application
+
+<div id="left">
+
+Fill in template details
+
+1. Choose or create project
+2. Pick python version (3.6, 3.5, 2.7)
+3. Pick name of application
+4. Enter application code git repository
+    * Click *advanced options* for private repositories
+5. Click Create
+
+</div>
+
+<div id="right">
+
+![horiz-shot](img/generic-shots/template-params.png)
+
+</div>
+
+===
+
+## Sample python application
+
+<div id="left">
+
+Click project name on right and wait for the application to be deployed.
+
+</div>
+
+<div id="right">
+
+![horiz-shot](img/generic-shots/template-result.png)
+
+</div>
+
+===
+
+## Sample python application
+
+
+* When the application us running, OpenShift console will collect data related to it in a dashboard view
+* This project has a route http://django-ex-test-python-project.rahtiapp.fi
+
+![horiz-shot](img/generic-shots/template-up.png)
 ---
 
 # <p style="color:black">Why Kubernetes? </p>
