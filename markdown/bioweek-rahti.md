@@ -164,10 +164,40 @@ Configuration: aragorn GCF_000002945.1_ASM294v2_genomic.fna
 
 ---
 
+# Part 1: Background
+
+<!-- .slide: data-background="img/topic_background.png" -->
+
+---
+
+## Rahti is a
+
+> container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
+
+&nbsp;
+&nbsp;
+
+----
+
+&nbsp;
+&nbsp;
+
+### Allows
+
+*Provisioning servers based on container technology with JSON API or web console.*
+
+---
+
+
 ## Containers 
 
-* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
-    * Own **network**, filesystem, process ids, user ids
+Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
+
+---
+
+## Containers 
+
+Own **network**, filesystem, process ids, user ids
 
 ```bash
 / $ ifconfig
@@ -196,20 +226,20 @@ Note: alpine image
 
 ## Containers 
 
-* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
-    * Own network, **filesystem**, process ids, user ids
+Own network, **filesystem**, process ids, user ids
 
 ```bash
 sh-4.2$ ls
 anaconda-post.log  bin	data  dev  etc	home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 ```
 
+Note: centos:7 image
+
 ---
 
 ## Containers 
 
-* Container is a mechanism which encapsulates a vanilla collection of Linux resources for an application to use:
-    * Own network, filesystem, **process ids** and **user ids**, ...
+Own network, filesystem, **process ids** and **user ids**, ...
 
 ```bash
 sh-4.2$ ps axu
@@ -220,7 +250,9 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 1016530+     15  0.0  0.0  51740  1732 ?        R+   10:49   0:00 ps axu
 ```
 
-> Rahti does not allow running containers as root. It always assigns high user id. This is to prevent security issues.
+> Rahti does not allow running containers as root. It always assigns varying user id. This is to prevent security issues.
+
+Note: centos:7 image
 
 ---
 
@@ -230,13 +262,12 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 <div class=col>
 
-* They might have a look and feel of a light weight virtual machine like in Pouta, but they are not virtual machines.
-* Relies on Linux kernel features.
-* Standardized container *images*.
-    * Build once run everywhere.
-    * But avoid some pitfalls.
-* Only Linux based images.
-* Standards: Docker, rkt, LXC, Singularity, Intel Clear Containers
+* They have a look and feel of a light weight virtual machine, but they are not virtual machines
+* Rely on Linux kernel features
+* Standardized container *images*
+    * Build once run everywhere
+* Only Linux based images
+* Standards: Docker, rkt, LXC, Singularity, katacontainers, Intel clear containers
 * **Rahti supports *Docker* images**
 
 </div>
@@ -267,11 +298,12 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 >Is a container orchestration platform that allows running Docker container images.
 
-* OpenShift "community edition", currently version 3.10
+* OpenShift "community edition": *OKD - The Origin Community Distribution of Kubernetes that powers Red Hat OpenShift.*
 * A Kubernetes implementation
-    * Kubernetes originally from Google
+    * Kubernetes originally developed at Google
     * Now maintained by Cloud Native Computing Foundation
     * OpenShift skills translate to Kubernetes skills and vice versa
+* Terms OpenShift and Kubernetes can be used interchangeably, but OpenShift has some additional features that Kubernetes hasn't
 
 ---
 
@@ -291,6 +323,12 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 ---
 
+# Part 2: Running workloads in Rahti
+
+<!-- .slide: data-background="img/topic_background.png" -->
+
+---
+
 ## Running containers in Kubernetes: Pods
 
 <div class=container>
@@ -303,13 +341,13 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 <div class="col">
 
-* Pod manages multiple containers. 
+* Pod manages multiple containers
   * Announces mountable volumes from persistent storage claims
-  * They all run physically near each other.
-  * Containers in a pod share IP and memory.
+  * They all run physically near each other
+  * Containers in a pod share IP and memory
 * Data in containers is ephemeral, container is reset when it is killed and restarted
   * Root volume is locate at the compute node: SSD disk, no redundancy
-* Persistent disk using volume mounts.
+* Persistent disk using volume mounts
 
 </div>
 
@@ -328,13 +366,13 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 <div class="col">
 
-* Pod manages multiple containers. 
+* Pod manages multiple containers
   * Announces mountable volumes from persistent storage claims
-  * They all run physically near each other.
-  * Containers in a pod share IP and memory.
+  * They all run physically near each other
+  * Containers in a pod share IP and memory
 * Data in containers is ephemeral, container is reset when it is killed and restarted
   * Root volume is locate at the compute node: SSD disk, no redundancy
-* Persistent disk using volume mounts.
+* Persistent disk using volume mounts
 
 </div> </div>
 
@@ -346,7 +384,7 @@ USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 * Objects are defined as key-value maps
 * Representation in YAML language
-  * Indentation matters
+  * Indentation matters, no tabs, suggestion is 2 spaces
 
 </div>
 
@@ -387,34 +425,76 @@ $\downarrow$
 
 ## Brief intro to YAML files
 
-* YAML is a intermediate data language based on key-value pairs and lists:
-    
-* Just a value is a YAML file
+YAML is a intermediate data language based on key-value pairs and lists:
 
-    ```yaml
-    "this is a valid yaml file"
-    ```
+<ul> <li> Just a value is a YAML file
 
-* Key and value is signified with colon ":" (Value must be indented!)
+```yaml
+"this is a valid yaml file"
+```
 
-    ```yaml
-    key: 
-      value
-    ```
+</li>
 
-* Lists are written with "[" and "]" or with "-" symbols:
+<li> Key and value is signified with colon ":" (Value must be indented!)
 
-    ```yaml
-    list:
-    - value 1
-    - value 2
-    ```
+<div class=container> <div class=col>
 
-    is equivalent to 
+```yaml
+key: 
+  value
+```
 
-    ```yaml
-    list: [value 1, value 2]
-    ```
+</div> <div class=col style="max-width: 50px; margin-top: 10px; ">
+$\Leftrightarrow$
+</div>
+
+<div class=col>
+
+```yaml
+key: value
+```
+
+</div> </div> </li>
+
+<li> Lists are written with "[" and "]" or with "-" symbols:
+
+<div class=container> 
+
+<div class=col style="max-width: 280px">
+
+```yaml
+list:
+- value 1
+- value 2
+```
+
+</div> 
+
+<div class=col style="max-width: 40px; margin-top: 10px">
+$\Leftrightarrow$
+</div>
+
+<div class=col style="max-width: 280px">
+
+```yaml
+list:
+  - value 1
+  - value 2
+```
+
+</div> 
+
+<div class=col style="max-width: 40px; margin-top: 10px">
+$\Leftrightarrow$
+</div>
+
+<div class=col>
+
+```yaml
+list: [value 1, value 2]
+```
+
+</div> </div> </li> </ul>
 
 $\downarrow$
 
@@ -437,9 +517,6 @@ $\downarrow$
       - list
     key-2: value for key-2
     ```
-
-* Lists as values don't need to be indented (but they can be)
-* Value can be on the same line if its not key-value data
 
 ---
 
@@ -489,16 +566,15 @@ spec:
   * Define volumes to be brought to the Pod
   * Define containers in the pod
     * There can be multiple, this is a list!
-    * Define where the volume is mounted in the container.
-    * Here we could define command to run inside the container
+    * Define where the volume is mounted in the container
 
 </div>
 
 ---
 
-## How to submit the pod to rahti?
+## How to submit a pod to rahti?
 
-* Use the `oc` command line tool.
+* Use the `oc` command line tool
 * Write the yaml-file
 * Submit by
 ```bash
@@ -509,7 +585,7 @@ oc create -f pod.yaml
 
 ---
 
-## Did it work well?
+## Did it work?
 
 * Web console
 * `oc describe pod simple`
@@ -572,7 +648,7 @@ Events:
 * OpenShift will run the container over and over again.
 <!-- .element: class="fragment" data-fragment-index="0" -->
 
-*But there's nothing to run.*
+*But there's nothing to execute.*
 <!-- .element: class="fragment" data-fragment-index="0" -->
 
 **We can specify `command` to run in the container.**
@@ -607,7 +683,7 @@ spec:
     command:
     - sh
     - -c
-    - tail -f /dev/null
+    - (tail -f /dev/null)
 ```
 
 </div>
@@ -618,10 +694,12 @@ spec:
 * Each entry of the `command` array is the *n* th argument. Here:
   * "`sh`" is the 0th argument (command to execute)
   * "`-c`" is the 1st argument
-  * "`tail -f /dev/null`" is the 2nd argument
+  * "`(tail -f /dev/null)`" is the 2nd argument
+* Equivalent with
 ```bash
-sh -c 'tail -f /dev/null'
+sh -c '(tail -f /dev/null)'
 ```
+* Parentheses start a sub-shell so `tail` wont run with process id 1
 
 </div>
 
@@ -645,8 +723,8 @@ Remote shell connection to container, create file in the persistent volume mount
 
 ```bash
 $ oc rsh simple
-/ $ echo test > /data/testfile
-/ $ exit
+sh-4.2$ echo test > /data/testfile
+sh-4.2$ exit
 ```
 
 Copy `testfile` to local shell:
@@ -685,8 +763,8 @@ sh -c 'echo first command && echo second command && echo third command'
 
 <div class=col>
 
-* OpenShift will try to run the pod again if it exits.
-* Use "`restartPolicy: Never`" in the container definition for run-once-containers.
+* OpenShift will try to run the pod again if it exits
+* Use "`restartPolicy: Never`" in the container definition for run-once-containers
 * Output of the pod:
 
 ```bash
@@ -729,239 +807,325 @@ spec:
 
 ---
 
-## Detour on `oc` commands
+## The `oc` tool
+
+>Get help on `<command>`: `oc <command> --help`
 
 | Syntax | Meaning |
 |--------|-------------|
 | `oc create -f <fileName>` | Create object from file |
-| `oc replace -f <fileName>` | Replace object with file |
+| `oc replace [--force] -f <fileName>` | Replace object with <fileName>. Use `force` to delete old first. |
 | `oc delete <objectType> <objectName>` | Delete object from cluster |
 | `oc describe <objectType> <objectName>` | Display object status |
-| `oc status` | Display current OpenShift top level project status |
 | `oc logs <podName> [-c <containerName>]` | output stdout of pod `<podName>`, optionally that of container `<containerName>` |
 
 $\downarrow$
 
 ===
 
-## Detour on `oc` commands
+$\uparrow$
+
 
 | Syntax | Meaning |
 |--------|-------------|
+| `oc status` | Display current OpenShift top level project status |
 | `oc explain <objectType>.<field>.<subField>` | Print out documentation |
 | `oc rsync <pod>:<filePath> <localPath>` | Copy data from/to pod to/from local filesystem |
 | `oc rsh <pod>` | Remote shell to container |
-| `oc project` | Switch to project, show project |
-| `oc new-project` | Create new OpenShift project |
+| `oc projects` | Show projects |
+| `oc project <name>` | Switch to project `<name>` |
+| `oc new-project <name>` | Create new OpenShift project `<name>` |
+| `oc get <objectType> [<objectName>]` | Get object information |
+
+
+---
+
+## OpenShift Project concept
+
+* OpenShift "projects" are namespaces for the Kubernetes Objects
+* In single namespace there may be single object of given type-name-combination
+* By default objects are not visible across projects
+* Controlled with following commands:
+
+| Syntax | Meaning |
+|--------|-------------|
+| `oc projects` | Show projects |
+| `oc project <name>` | Switch to project `<name>` |
+| `oc new-project <name>` | Create new OpenShift project `<name>` |
 
 ---
 
 ## Summary
 
----
-
-* Analyse FASTA file with: aragorn?
-  * https://github.com/BioContainers/containers/blob/master/aragorn/1.2.38-1-deb/Dockerfile
-* https://www.ncbi.nlm.nih.gov/genome/?term=Schizosaccharomyces%20pombe[Organism]&cmd=DetailsSearch
-  * ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/GCF_000002945.1_ASM294v2/GCF_000002945.1_ASM294v2_genomic.fna.gz
-
-* Locally: 
-
-    ```
-    $ docker run -v $(pwd):/data/ --rm -it biocontainers/aragorn:v1.2.38-1-deb_cv1 bash
-    $ gunzip GCF_000002945.1_ASM294v2_genomic.fna.gz
-    $ aragorn GCF_000002945.1_ASM294v2_genomic.fna
-    ```
-
-* Run as a pod that doesn't restart 
-    * Create persistent volume
-    * Create jobs for downloading and unpacking inputdata
-    * Create job for running the script
-    * Get stdout
-
-* Normally one shouldn't use just any images. But biocontainers.pro are well maintained and curated images aimed at bioinformatics workloads.
-* Other good base images
-    * The biocontainers images: https://hub.docker.com/u/biocontainers
-    * docker.io/alpine: official Docker alpine image
-    * https://docs.docker.com/docker-hub/official_images/
+* Rahti runs Docker containers
+* Containers are *ephemeral*
+* Persistent storage must be requested and mounted to containers
+* Pod is the OpenShift object that manages containers
+* OpenShift objects are created from YAML files with `oc create -f <filename>`
+* Define `command` in the container specification to run specific binary 
+    * Otherwise the image's default command is executed
+* Projects/namespaces isolate applications
 
 ---
 
-# OpenShift theory part
+## Exercises
 
-1.  Pods are things in OpenShift/Kubernetes that keep track of containers.
+Exercises are located at [github.com/CSCfi/rahti-bioweek-2019](https://github.com/CSCfi/rahti-bioweek-2019).
 
-    `pod.yaml`:
+---
 
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata: 
-      name: simple
-    spec:
-      containers:
-      - name: simple
-        image: docker.io/alpine
-        command:
-        - sh
-        - -c
-        - tail -f /dev/null
-    ```
+# Part 3: More OpenShift
 
-    * What is different from running directly with docker?
-      * No root permissions inside the docker. This would be a huge security risk in multi-tenant container clouds.
-        * Not possible to install packages in the "command" section. Not advisable as well.
-      * If the command happens to exit or fail, openshift will start the container again. Unless specified differently.
-      * The code is run in the rahti cloud instead of your local computer.
-    * Remote shell to the running container: `oc rsh simple`
-    
-    Try `oc status`:
+<!-- .slide: data-background="img/topic_background.png" -->
 
-    ```
-    In project jkataja-bioweek on server https://rahti.csc.fi:8443
+---
 
-    pod/simple runs docker.io/alpine
+## Short security guide
+
+* Always review your container images
+  * Use curated image sources (e.g. biocontainers.pro)
+* For servers use IP whitelisting when possible
+* Keep webservices shortlived if possible
+  * Remember that you are the webmaster
+
+---
+
+## Resource requests and limits
 
 
-    1 info identified, use 'oc status --suggest' to see details.
-    ```
+<div class=container>
+<div class=col>
 
-1.  We need PersistentVolumeClaim object:
-
-    `pvc.yaml`:
-
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: yeast-pvc
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
-    ```
-
-2.  Simple pod with persistent storage
-
-    `pod.yaml`
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: simple
-      labels:
-        job: analyze
-    spec:
-      volumes:
-      - name: work-volume
-        persistentVolumeClaim:
-          claimName: yeast-pvc
-      containers:
-      - name: read
-        image: docker.io/alpine
-        command:
-        - sh
-        - -c
-        - tail -f /dev/null
-        volumeMounts:
-        - mountPath: /data
-          name: work-volume
-    ```
-
-3.  We need a job that transfers data from ftp://ftp.ncbi.nlm.nih.gov to our volume on rahti
-
-    `transfer.yaml`:
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: transfer
-      labels:
-        job: analyze
-    spec:
-      restartPolicy: Never
-      volumes:
-      - name: work-volume
-        persistentVolumeClaim:
-          claimName: yeast-pvc
-      containers:
-      - name: transfer
-        image: docker.io/alpine
-        command:
-        - sh
-        - -c
-        - >
-          cd /inputdata &&
-          wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/GCF_000002945.1_ASM294v2/GCF_000002945.1_ASM294v2_genomic.fna.gz &&
-          gunzip GCF_000002945.1_ASM294v2_genomic.fna.gz
-        volumeMounts:
-        - mountPath: /inputdata
-          name: work-volume
-    ```
-
-4.  Finally, the actual payload job
-
-    * Find image info at: https://hub.docker.com/r/biocontainers/aragorn/tags
-
-    `analyze.yaml`:
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: analyze
-    spec:
-      volumes:
-      - name: work-volume
-        persistentVolumeClaim: 
-          claimName: yeast-pvc
-      containers:
-      - name: analyze
-        image: biocontainers/aragorn:v1.2.38-1-deb_cv1
-        command:
-        - sh
-        - -c
-        - >
-          aragorn GCF_000002945.1_ASM294v2_genomic.fna
-        volumeMounts:
-        - mountPath: /data
-          name: work-volume
-      restartPolicy: Never
-    ```
-
-    * Output to `stdout`. Print it with `oc logs analyze`.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple
+  labels:
+    job: analyze
+spec:
+  restartPolicy: Never
+  containers:
+  - name: container-a
+    image: centos:7
+    command: ["sh", "-c", "echo Hello"]
+    resources:
+      requests:
+        memory: "200M"
+        cpu: "200m"
+      limits:
+        memory: "200M"
+        cpu: "200m"
 ```
 
+</div>
+
+<div class=col>
+
+* Use `spec.containers.resources` to specify how much resources to reserve.
+* Fractions of CPU are possible: "200 millicores"
+* Memory: M for Megabytes, G for Gigabytes
+* Define only limit $\rightarrow$ Kubernetes assigns equal requests
+* Billing is done according to requests
+* If not request/limit is in place default ones are chosen
+  * CPU: 100 millicores / 2 cores
+  * Memory: 200 MiB / 8 GiB
+
+</div>
+
+---
+
+## Running server jobs in Rahti
+
+<div class=container>
+<div class=col style="min-width: 50%" >
+
+Problem
+
+1. The Pod IP addresses are subject to change
+2. Pods are shut down if the node running them fails
+3. The Pod IPs are not visible to internet
+4. Load balancing
+5. Updating pods causes service downtime
+6. Passwords or private keys in container images
+7. Container image per configuration
+
+</div>
+<div class=col>
+
+Solution
+
+1. `Service` or `StatefulSet`
+2. Controllers
+3. `Route` (OpenShift)
+4. `Service`
+5. `DeploymentConfig` (OpenShift) or `Deployments`
+6. `Secret` 
+7. `ConfigMap`
+
+</div>
+<!-- .element: class="fragment" data-fragment-index="0" -->
+</div>
+
+Note: for every problem there is an object that solves it
+
+---
+
+## Service
+
+<div class=rcontainer>
+<div class=row>
+
+Solves problems 1 and 4: Pod IPs need to be tracked and traffic needs load-balancing
+
+</div> 
+<div class=row style="max-height: 600px">
+
+<img src="img/service.svg" alt="service"/>
+
+</div> </div>
+
+---
+
+## Route
+
+Roundabouts problem 3: " The Pod IPs are not visible to internet" by routing HTTP traffic to Service object in the cluster.
+
+<div class=container>
+
+<div class=row>
 
 
- 
-### Log in and create a project
+* Automatic route with hostnames `<hostname>.rahtiapp.fi`
+* TLS encryption provided via rahtiapp.fi domain
+* Any hostname possible, user needs to keep track of DNS and CA certificates
+* Supports IP whitelisting
 
-1.  Log in to rahti at https://rahti.csc.fi:8443 with your training account
-1.  Authenticate command line session to rahti
-    * Click training account name at top right -> Copy login command
-1.  Create project named <firstname-lastname>-bioweek
-    * Either on the web console *or*
-    * on command line using `oc new-project` command
-1.  See the output of `oc status`. It should print out the following:
+</div> 
 
-    ```
-    In project <firstname-lastname>-bioweek on server https://rahti.csc.fi:8443
+<div class=row style="max-height: 400px">
 
-    You have no services, deployment configs, or build configs.
-    Run 'oc new-app' to create an application.
-    ```
+<img src="img/route.svg" alt="Route"/>
 
-# Questions
+</div> </div>
 
-* Where does rahti pull images? Is this the correct order?
-    * internal registry
-    * dockerhub
-* How to force it to pull eg. `hub.docker.com/biocontainers/aragorn:v1.2.38-1-deb_cv1`
-    * `docker.io/biocontainers/aragorn:v1.2.38-1-deb_cv1`
-* How big logfile?
+---
+
+
+## Controllers
+
+* Controllers are a class of objects that start pods according to specific rules
+* Pod definitions are in the controllers' spec as a template
+* `ReplicaSet`, `ReplicationController`, `Deployments`, `DeploymentConfig`, `StatefulSet`, `CronJob`, ...
+* They *Control* pods
+* They all solve Problem 2: "Pods are shut down if the node running them fails"
+
+Note: Special case: ReplicationController and ReplicaSet
+
+---
+
+## ReplicationController & ReplicaSet
+
+<div class=rcontainer>
+
+<div class=row>
+
+Controllers that keep matching pods alive.
+
+</div> 
+
+<div class=row style="max-height: 600px">
+
+<img src="img/replicationcontroller.svg" alt="ReplicationController"/>
+
+</div> </div>
+
+
+---
+
+## StatefulSet
+
+<div class=rcontainer>
+
+<div class=row>
+
+Controller that keeps unique pods alive and gives them always unique names. Hostnames: `web-0..n`.
+
+</div> 
+
+<div class=row style="max-height: 600px">
+
+<img src="img/statefulset.svg" alt="StatefulSet"/>
+
+</div> </div>
+
+---
+
+## Deployments / DeploymentConfig
+
+<div class=rcontainer>
+
+<div class=row>
+
+* Create `ReplicaSet`s (`Deployments`) and `ReplicationController`s (`DeploymentConfig`)
+* Automates application upgrades 
+* `DeploymentConfigs` can watch when new container images appear in the internal image registry
+* `Deployment` is generic Kubernetes object and `DeploymentConfig` is an OpenShift extension
+
+</div> 
+
+<div class=row style="max-height: 300px">
+
+<img src="img/deployment.svg" alt="Deployment"/>
+
+</div> </div>
+
+---
+
+## Secrets and ConfigMaps
+
+<div class=container>
+
+<div class=col>
+
+* `Secret` and `ConfigMap`
+  * Environment variable
+  * Volume mount: Create files according to keys, populate contents according to value
+
+</div> 
+
+<div class=col>
+
+<img src="img/configmount.svg" alt="Secret"/>
+
+</div> </div>
+
+---
+
+## And much more!
+
+* `ImageStream` (OpenShift): Watching image updates in internal registry
+* `BuildConfig` (OpenShift): Building images in Rahti
+* `CronJob`: running Pod at specific times
+* `initContainer`: run-to-completion container executed before other containers in Pod
+* `HorizontalPodAutoscaler`: starts up new pods according to server load
+* `Template`: Collect number of objects to parametrizable lists
+
+Note: Show template demo
+
+---
+
+## Rahti links
+
+* [The Rahti main page](https://rahti.csc.fi/) for end user documentation
+  * You need a CSC computing project to access Rahti
+  * No cost for you when you use Rahti for open research and education
+  * [Instructions for getting access](https://rahti.csc.fi/introduction/access/)
+* [rahti-support@csc.fi](mailto:rahti-support@csc.fi) for support
+* [Public roadmap](https://trello.com/b/JQT9QiS2/rahti-container-cloud-roadmap)
+* External documentation
+  * [Kubernetes documentation](https://kubernetes.io/docs/home/)
+  * [OpenShift documentation](https://docs.okd.io/)
+
+---
 
