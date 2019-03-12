@@ -1129,3 +1129,12 @@ Note: Show template demo
 
 ---
 
+## Presentation links
+
+* This presentation: 
+  * https://object.pouta.csc.fi/rahti-bioweek/slides.pdf
+  * https://rahti-bioweek-2019.rahtiapp.fi/
+* Exercises: 
+  * Github: https://github.com/CSCfi/rahti-bioweek-2019
+  * exercises.pdf: https://object.pouta.csc.fi/rahti-bioweek/exercises.pdf
+  * exercises.tar.gz: https://object.pouta.csc.fi/rahti-bioweek/exercises.tar.gz
