@@ -14,6 +14,13 @@ Discussion at (office network):
 
 https://rahti-ep.rahti-int-app.csc.fi/p/RahtiFAQ
 
+These slides:
+
+http://mcm-march-2019.rahtiapp.fi/#/1
+
+Exercises:
+
+https://bit.ly/2TMJVl3
 
 ---
 
