@@ -653,12 +653,6 @@ $\uparrow$
 
 ---
 
-## Exercises
-
-Exercises are located at [github.com/CSCfi/rahti-bioweek-2019](https://github.com/CSCfi/rahti-bioweek-2019).
-
----
-
 # Part 3: More OpenShift
 
 <!-- .slide: data-background="img/topic_background.png" -->
@@ -753,6 +747,37 @@ Solution
 </div>
 
 Note: for every problem there is an object that solves it
+
+---
+
+## Controllers
+
+* Controllers are a class of objects that start pods according to specific rules
+* Pod definitions are in the controllers' spec as a template
+* `ReplicaSet`, `ReplicationController`, `Deployments`, `DeploymentConfig`, `StatefulSet`, `CronJob`, ...
+* They *Control* pods
+* They all solve Problem 2: "Pods are shut down if the node running them fails"
+
+Note: Special case: ReplicationController and ReplicaSet
+
+---
+
+## ReplicationController & ReplicaSet
+
+<div class=rcontainer>
+
+<div class=row>
+
+Controllers that keep matching pods alive.
+
+</div> 
+
+<div class=row style="max-height: 600px">
+
+<img src="img/replicationcontroller.svg" alt="ReplicationController"/>
+
+</div> </div>
+
 
 ---
 
@@ -959,37 +984,6 @@ spec:
 
 ---
 
-## Controllers
-
-* Controllers are a class of objects that start pods according to specific rules
-* Pod definitions are in the controllers' spec as a template
-* `ReplicaSet`, `ReplicationController`, `Deployments`, `DeploymentConfig`, `StatefulSet`, `CronJob`, ...
-* They *Control* pods
-* They all solve Problem 2: "Pods are shut down if the node running them fails"
-
-Note: Special case: ReplicationController and ReplicaSet
-
----
-
-## ReplicationController & ReplicaSet
-
-<div class=rcontainer>
-
-<div class=row>
-
-Controllers that keep matching pods alive.
-
-</div> 
-
-<div class=row style="max-height: 600px">
-
-<img src="img/replicationcontroller.svg" alt="ReplicationController"/>
-
-</div> </div>
-
-
----
-
 ## StatefulSet
 
 <div class=rcontainer>
@@ -1053,3 +1047,12 @@ Controller that keeps unique pods alive and gives them always unique names. Host
 * External documentation
   * [Kubernetes documentation](https://kubernetes.io/docs/home/)
   * [OpenShift documentation](https://docs.okd.io/)
+
+---
+
+## Exercises
+
+Exercises are located at [github.com/CSCfi/rahti-bioweek-2019](https://github.com/CSCfi/rahti-bioweek-2019).
+
+---
+
