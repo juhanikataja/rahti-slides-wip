@@ -10,21 +10,10 @@
 
 ---
 
-## Rahti is a
+Discussion at (office network):
 
-> container cloud Platform as a Service (PaaS) based on OpenShift - Red Hat's distribution of Kubernetes
+https://rahti-ep.rahti-int-app.csc.fi/p/RahtiFAQ
 
-&nbsp;
-&nbsp;
-
-----
-
-&nbsp;
-&nbsp;
-
-### Allows
-
-*Provisioning servers based on container technology with JSON API or web console.*
 
 ---
 
