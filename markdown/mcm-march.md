@@ -900,7 +900,7 @@ metadata:
     app: serveapp
 spec:
   ports:
-  - targetPort: 7000
+  - port: 7000
   selector:
     pool: serveapp
 ```
