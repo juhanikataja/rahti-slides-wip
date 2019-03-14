@@ -838,7 +838,7 @@ spec:
     metadata:
       labels:
         app: serveapp
-        deploymentconfig: blogdeployment
+        deploymentconfig: servedeployment
     spec:
       containers:
       - name: serve-cont
