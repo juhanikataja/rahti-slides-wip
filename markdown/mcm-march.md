@@ -1041,7 +1041,9 @@ Controller that keeps unique pods alive and gives them always unique names. Host
 
 ## Exercises
 
-Exercises are located at [github.com/CSCfi/rahti-bioweek-2019](https://github.com/CSCfi/rahti-bioweek-2019).
+* Exercises are located at https://bit.ly/2TMJVl3
+
+* Discussion at https://rahti-ep.rahti-int-app.csc.fi/p/RahtiFAQ
 
 ---
 
